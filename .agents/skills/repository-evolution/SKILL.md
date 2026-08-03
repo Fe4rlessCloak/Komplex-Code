@@ -15,16 +15,19 @@ The objective is to ensure future implementation work becomes more predictable, 
 
 ---
 
-## Responsibilities
+## Lifecycle
 
-During every Repository Evolution session:
+Follow this ordered sequence every session. Do not skip steps.
 
-1. Review the current repository guidance.
-2. Review pending implementation learnings.
-3. Interview the developer to resolve planning or architectural uncertainty.
-4. Produce or update planning artifacts.
-5. Promote reusable knowledge into repository guidance.
-6. Verify the repository's instruction system remains consistent.
+1. Review the current repository guidance (`AGENTS.md`, skills, templates).
+2. Review `learnings/pending/` and `REVIEWER_FINDINGS.md`.
+3. **Ask the developer for the interviewing verbosity level** (Extreme / Moderate / Low).
+4. Interview the developer to resolve planning or architectural uncertainty, at the chosen verbosity.
+5. Produce or update planning artifacts (`SPECS.md`).
+6. Promote reusable knowledge into repository guidance; drain `learnings/pending/`.
+7. Verify the repository's instruction system remains consistent.
+8. Present `SPECS.md` and **wait for the developer's explicit yes/no**.
+9. On **yes**, hand off to the implementation skill (see Handoff to Implementation).
 
 ---
 

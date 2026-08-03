@@ -15,16 +15,19 @@ The objective is to satisfy the active specification with the minimum necessary 
 
 ---
 
-## Responsibilities
+## Lifecycle
 
-During every implementation session:
+Follow this ordered sequence every session. Do not skip steps.
 
-1. Review the repository instructions.
-2. Review the active specification.
-3. Implement the required work.
-4. Verify the implementation.
-5. Record implementation findings.
-6. Stop.
+1. Read `AGENTS.md` and the active `SPECS.md`.
+2. Read `REVIEWER_FINDINGS.md` and address any `Pending` findings in scope.
+3. Implement the spec in logical order of foundational dependencies first.
+4. Verify each unit with an observable signal.
+5. Check off completed items in `SPECS.md`.
+6. Record discoveries or plan deviations as learning files in `learnings/pending/`.
+7. Report the exit code (`0_DONE`, `1_BLOCKED`, `2_BUDGET_EXCEEDED`, `3_STUCK`).
+8. Present the results and **wait for the developer's explicit yes/no**.
+9. On **yes**, hand off back to the repository evolution skill (see Handoff to Repository Evolution).
 
 ---
 
@@ -35,7 +38,7 @@ Review before modifying code:
 - `AGENTS.md`
 - Active `SPECS.md`
 - Relevant domain skills
-- `LEARNINGS.md`
+- `learnings/pending/`
 - `REVIEWER_FINDINGS.md`
 
 Inspect the repository before making assumptions.
@@ -128,3 +131,21 @@ Before considering implementation complete:
 - [ ] No high-level documentation was modified (only `BLOCKED.md`, `learnings/pending/`, and `.logs/`).
 
 Implementation sessions map their completion to the exit codes in `AGENTS.md` Section 6 (`0_DONE` when the spec item is complete and verified; `1_BLOCKED` when halted with a blocker recorded in `BLOCKED.md`).
+
+---
+
+## Handoff to Repository Evolution
+
+Once implementation is complete and verified, hand the work back to the repository evolution skill so it can fold learnings into guidance and plan the next round.
+
+### Interactive session
+
+1. Present the results (what was implemented, verified, and recorded) to the developer and **wait for an explicit yes/no**.
+2. If the developer requests changes, continue implementing and re-present.
+3. Only on an explicit **yes**, load the repository evolution skill (`.agents/skills/repository-evolution/SKILL.md`) and hand off.
+
+### Autonomous loop
+
+In the loop, each run is isolated. End the implementation run with `0_DONE` once the spec item is complete and verified, then **wait for the developer's explicit yes/no** before the next run loads the repository evolution skill to drain `learnings/pending/` and plan the next round.
+
+Do not hand off until the work is complete and approved — never proceed to the next phase without an explicit **yes**.
