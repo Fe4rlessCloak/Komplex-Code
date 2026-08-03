@@ -1,4 +1,4 @@
-# Harness
+# Komplex-Code
 
 A small set of working rules that help a coding assistant run a project in a steady, repeatable way. This repository is not an application. It is a set of instructions and templates that shape how work gets planned, carried out, and improved over time.
 
