@@ -2,6 +2,8 @@
 
 Record only intentional technical compromises made to satisfy the active specification. Do not record ordinary implementation decisions or future feature ideas.
 
+**Write path:** The **Repository Evolution** skill writes entries to this file. **Implementation** does not write here directly — it proposes a tech-debt entry via a learning file in `learnings/pending/` with an Evolution Candidate whose `Destination: TECH_DEBT`. Implementation may add the `// TECHDEBT: DEBT-001` marker in code, but the entry itself is created by the evolver.
+
 ---
 
 ## [DEBT-001] – Short Title

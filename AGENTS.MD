@@ -72,16 +72,16 @@ The repository's operational documents are owned and maintained by the **Reposit
 | Document | Owner | Purpose |
 |---|---|---|
 | `SPECS.md` | Repository Evolution (content) / Implementation (check-off) | Active specification of work to implement |
-| `BLOCKED.MD` | Implementation (write) / Evolution (maintain) | The Handbrake: record blockers and halt |
+| `BLOCKED.MD` | Implementation (write / resolve) / Evolution (maintain) | The Handbrake: record blockers and halt |
 | `TECH_DEBT.MD` | Repository Evolution | Compromise tracker for intentional trade-offs |
 | `learnings/pending/` | Implementation (write) / Evolution (evaluate) | New learning queue awaiting evaluation |
 | `learnings/archive/` | Repository Evolution | Evaluated learning records (historical) |
-| `REVIEWER_FINDINGS.MD` | Repository Evolution | Audit log of regressions and rule violations |
+| `REVIEWER_FINDINGS.MD` | Repository Evolution (content) / Implementation (resolve) | Audit log of regressions and rule violations |
 | `PROMPTS.MD` | Repository Evolution | Reusable loop scripts and prompts |
 
 ### 5.2 Write Permissions
 
-* **Implementation** may write to `BLOCKED.MD`, `learnings/pending/`, and `.logs/` only. It may also **check off** (`[ ]` → `[x]`) completed items in `SPECS.md` — and nothing else in that file: no content edits, no reordering, no scope changes. It may propose guidance changes via Evolution Candidates in `learnings/pending/`, but must not edit `AGENTS.md`, skills, templates, `SPECS.md` content, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md`.
+* **Implementation** may write to `BLOCKED.MD`, `learnings/pending/`, and `.logs/` only. It may also **check off** (`[ ]` → `[x]`) completed items in `SPECS.md` — and nothing else in that file: no content edits, no reordering, no scope changes. It may **mark** `BLOCKED.MD` blockers as `RESOLVED` (with a note on how) and **mark** `REVIEWER_FINDINGS.MD` findings as `Resolved` (with a note on how) — status toggles and resolution notes only, no editing of the underlying problem/action content. It may propose guidance changes via Evolution Candidates in `learnings/pending/`, but must not edit `AGENTS.md`, skills, templates, `SPECS.md` content, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md` finding content.
 * **Repository Evolution** owns and may update all operational documents and repository guidance. It drains `learnings/pending/`, promotes durable knowledge into guidance, and moves evaluated records to `learnings/archive/`.
 
 ### 5.3 Document Definitions

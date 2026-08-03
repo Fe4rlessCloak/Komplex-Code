@@ -179,3 +179,21 @@ Before concluding a Repository Evolution session:
 - [ ] New reusable knowledge has been captured where appropriate.
 
 Repository Evolution sessions map their completion to the exit codes in `AGENTS.md` Section 6 (`0_DONE` when planning is complete and guidance is consistent).
+
+---
+
+## Handoff to Implementation
+
+Once planning is complete and verified, hand the work off to the implementation skill. The active `SPECS.md` is the single handoff artifact — record all planning decisions and constraints inside the spec so the implementer needs nothing else.
+
+### Interactive session
+
+1. Present the finished `SPECS.md` to the developer and **wait for an explicit yes/no**.
+2. If the developer requests changes, revise the spec and re-present it.
+3. Only on an explicit **yes**, load the implementation skill (`.agents/skills/implementation/SKILL.md`) and begin executing the active spec in the same session.
+
+### Autonomous loop
+
+In the loop, each run is isolated. End the evolution run with `0_DONE` once planning is complete and verified, then **wait for the developer's explicit yes/no** before the next run loads the implementation skill and executes the active `SPECS.md`. Use the reusable handoff prompt in `PROMPTS.md` to drive the transition.
+
+Do not hand off until the spec is complete and approved — an incomplete spec (unresolved questions, missing verification) is a failed interview, not a handoff. In both paths, never proceed to implementation without an explicit **yes**.

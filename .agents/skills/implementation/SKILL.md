@@ -55,7 +55,7 @@ Inspect the repository before making assumptions.
 
 ## Documentation Responsibilities
 
-Implementation may write to `BLOCKED.md`, `learnings/pending/`, and `.logs/` only. It may also **check off** (`[ ]` → `[x]`) completed items in `SPECS.md` — and nothing else in that file. It must not perform high-level documentation changes — those belong to Repository Evolution.
+Implementation may write to `BLOCKED.md`, `learnings/pending/`, and `.logs/` only. It may also **check off** (`[ ]` → `[x]`) completed items in `SPECS.md`, **mark** `BLOCKED.md` blockers as `RESOLVED`, and **mark** `REVIEWER_FINDINGS.md` findings as `Resolved` — status toggles and resolution notes only, never edits to underlying content. It must not perform high-level documentation changes — those belong to Repository Evolution.
 
 ### BLOCKED.md
 
@@ -69,11 +69,19 @@ Update when implementation cannot continue because of:
 
 Record the exact error and halt further implementation.
 
+When a blocker is later resolved, mark its entry `RESOLVED` and add a note explaining how it was resolved.
+
 ---
 
 ### SPECS.md check-off
 
 As each implementation unit is completed and verified, toggle its checkbox (`[ ]` → `[x]`) in `SPECS.md`. Do **not** edit spec content, reorder units, or change scope. Check-off is the only permitted write to `SPECS.md`.
+
+---
+
+### REVIEWER_FINDINGS.md
+
+On session startup, read `REVIEWER_FINDINGS.md` and address any `Pending` findings in scope. When you resolve a finding, mark its status `Resolved` and add a note explaining how — do not edit the finding's problem, severity, or required-action content.
 
 ---
 

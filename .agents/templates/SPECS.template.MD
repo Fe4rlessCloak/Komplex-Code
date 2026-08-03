@@ -29,26 +29,7 @@
 * **Test Command:** `[e.g., pnpm test src/auth]`
 * **Expected Observable Behavior:** [e.g., Submitting form returns HTTP 201 and redirects to /dashboard]
 
-## 5. Open Questions
-
-- [ ] Authentication flow not specified.
-- [ ] API rate limiting requirements unknown.
-
-## 6. File Ownership 
-
-**Affected Files**
-
-Must Modify:
-- ...
-
-May Modify:
-- ...
-
-Must Not Modify:
-- ...
-
-## 7. Compatibility  
-
+## 5. Compatibility  
 
 - Preserve existing public APIs unless specified.
 - Preserve backward compatibility unless explicitly waived.

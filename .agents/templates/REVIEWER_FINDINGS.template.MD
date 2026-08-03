@@ -1,6 +1,6 @@
 # Architectural Audit Findings
 
-Generated from a code review or architectural audit. The implementation agent should read this file before beginning work and resolve all `Pending` findings that are in scope.
+Generated from a code review or architectural audit. The implementation agent should read this file before beginning work and resolve all `Pending` findings that are in scope. When a finding is resolved, the implementation agent marks its `Status` as `Resolved` and adds a note explaining how — it does not edit the finding's problem, severity, or required-action content.
 
 ---
 

@@ -2,6 +2,8 @@
 
 Store reusable autonomous execution prompts, CLI invocation flags, and Ralph Loop bash scripts. Do not record one-off commands or feature-specific instructions.
 
+**Write path:** The **Repository Evolution** skill writes entries to this file. **Implementation** does not write here directly — it proposes a reusable prompt/script via a learning file in `learnings/pending/` with an Evolution Candidate whose `Destination: PROMPTS`. The evolver decides whether to accept it.
+
 ---
 
 ## [PROMPT-001] – Short Title

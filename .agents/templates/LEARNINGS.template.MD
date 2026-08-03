@@ -60,6 +60,8 @@ Examples:
 
 Each learning may propose **one or more** changes to repository guidance. Each candidate has a **Destination** (where the change goes) and a **Priority** (how urgently the evolver must act). A single deviation may spawn multiple candidates (e.g., one to `SPECS` and one to `TECH_DEBT`).
 
+**Status ownership:** Implementation always writes `Status: PENDING`. Only the **Repository Evolution** skill changes it to `ACCEPTED` or `REJECTED` when it evaluates the candidate.
+
 ### Candidate 1
 
 - **Destination:** `SPECS` | `TECH_DEBT` | `PROMPTS` | `SKILL` | `AGENTS`
