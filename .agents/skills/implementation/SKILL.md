@@ -90,7 +90,7 @@ On session startup, read `REVIEWER_FINDINGS.md` and address any `Pending` findin
 
 ### learnings/pending/
 
-Record repository discoveries made during implementation as a **single learning file** in `learnings/pending/` (see `LEARNINGS.template.MD`). Choose a record type:
+Record repository discoveries made during implementation as a **single learning file** in `learnings/pending/` (see `LEARNINGS.template.md`). Choose a record type:
 
 - **QUIRK** — non-obvious repository behavior,
 - **DEVIATION** — you did something differently than planned due to constraints,
@@ -111,7 +111,7 @@ Pipe terminal stdout/stderr into `.logs/run-<timestamp>.log` for each run.
 When implementation discovers reusable repository knowledge:
 
 1. Write a learning file in `learnings/pending/`.
-2. Attach Evolution Candidates with Destination and Priority (see `LEARNINGS.template.MD` for the required fields).
+2. Attach Evolution Candidates with Destination and Priority (see `LEARNINGS.template.md` for the required fields).
 3. Continue implementation whenever possible.
 
 Repository guidance is promoted during Repository Evolution, not during implementation. Implementation may only propose guidance changes via Evolution Candidates in `learnings/pending/`; it must not edit `AGENTS.md`, skills, templates, `SPECS.md` content, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md`.

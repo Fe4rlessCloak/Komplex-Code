@@ -110,7 +110,7 @@ Promote only reusable repository knowledge. After evaluation, move each learning
 
 An **Evolution Candidate** is a proposal written by an Implementation session into a learning file in `learnings/pending/`, requesting that the next Repository Evolution session change repository guidance or a document. It is the only channel through which Implementation may propose guidance changes.
 
-Each candidate must be evaluated against the following fields (see `LEARNINGS.template.MD`):
+Each candidate must be evaluated against the following fields (see `LEARNINGS.template.md`):
 
 - **Destination:** `SPECS` | `TECH_DEBT` | `PROMPTS` | `SKILL` | `AGENTS`
 - **Priority:** Low | Medium | High

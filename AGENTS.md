@@ -74,26 +74,26 @@ The repository's operational documents are owned and maintained by the **Reposit
 | Document | Owner | Purpose |
 |---|---|---|
 | `SPECS.md` | Repository Evolution (content) / Implementation (check-off) | Active specification of work to implement |
-| `BLOCKED.MD` | Implementation (write / resolve) / Evolution (maintain) | The Handbrake: record blockers and halt |
-| `TECH_DEBT.MD` | Repository Evolution | Compromise tracker for intentional trade-offs |
+| `BLOCKED.md` | Implementation (write / resolve) / Evolution (maintain) | The Handbrake: record blockers and halt |
+| `TECH_DEBT.md` | Repository Evolution | Compromise tracker for intentional trade-offs |
 | `learnings/pending/` | Implementation (write) / Evolution (evaluate) | New learning queue awaiting evaluation |
 | `learnings/archive/` | Repository Evolution | Evaluated learning records (historical) |
-| `REVIEWER_FINDINGS.MD` | Repository Evolution (content) / Implementation (resolve) | Audit log of regressions and rule violations |
-| `PROMPTS.MD` | Repository Evolution | Reusable loop scripts and prompts |
+| `REVIEWER_FINDINGS.md` | Repository Evolution (content) / Implementation (resolve) | Audit log of regressions and rule violations |
+| `PROMPTS.md` | Repository Evolution | Reusable loop scripts and prompts |
 
 ### 5.2 Write Permissions
 
-* **Implementation** may write to `BLOCKED.MD`, `learnings/pending/`, and `.logs/` only. It may also **check off** (`[ ]` → `[x]`) completed items in `SPECS.md` — and nothing else in that file: no content edits, no reordering, no scope changes. It may **mark** `BLOCKED.MD` blockers as `RESOLVED` (with a note on how) and **mark** `REVIEWER_FINDINGS.MD` findings as `Resolved` (with a note on how) — status toggles and resolution notes only, no editing of the underlying problem/action content. It may propose guidance changes via Evolution Candidates in `learnings/pending/`, but must not edit `AGENTS.md`, skills, templates, `SPECS.md` content, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md` finding content.
+* **Implementation** may write to `BLOCKED.md`, `learnings/pending/`, and `.logs/` only. It may also **check off** (`[ ]` → `[x]`) completed items in `SPECS.md` — and nothing else in that file: no content edits, no reordering, no scope changes. It may **mark** `BLOCKED.md` blockers as `RESOLVED` (with a note on how) and **mark** `REVIEWER_FINDINGS.md` findings as `Resolved` (with a note on how) — status toggles and resolution notes only, no editing of the underlying problem/action content. It may propose guidance changes via Evolution Candidates in `learnings/pending/`, but must not edit `AGENTS.md`, skills, templates, `SPECS.md` content, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md` finding content.
 * **Repository Evolution** owns and may update all operational documents and repository guidance. It drains `learnings/pending/`, promotes durable knowledge into guidance, and moves evaluated records to `learnings/archive/`.
 
 ### 5.3 Document Definitions
 
-* **`BLOCKED.MD` (The Handbrake):** If you hit an environment blocker, missing secret, or failing third-party endpoint, write the exact error and requirements to `BLOCKED.MD` and halt immediately. Do not attempt speculative workarounds.
-* **`TECH_DEBT.MD` (Compromise Tracker):** Record only intentional temporary compromises that should be revisited. Do not record ordinary implementation decisions.
-* **`learnings/pending/` (Learning Queue):** After resolving a non-obvious bug, repository quirk, or plan deviation, Implementation writes a single learning file here (see `LEARNINGS.template.MD`). Each file carries one or more Evolution Candidates with a **Destination** (`SPECS` / `TECH_DEBT` / `PROMPTS` / `SKILL` / `AGENTS`) and **Priority**. The evolver reads only this directory — the directory listing is the list of new learnings, so token cost stays proportional to new findings, not the total archive.
+* **`BLOCKED.md` (The Handbrake):** If you hit an environment blocker, missing secret, or failing third-party endpoint, write the exact error and requirements to `BLOCKED.md` and halt immediately. Do not attempt speculative workarounds.
+* **`TECH_DEBT.md` (Compromise Tracker):** Record only intentional temporary compromises that should be revisited. Do not record ordinary implementation decisions.
+* **`learnings/pending/` (Learning Queue):** After resolving a non-obvious bug, repository quirk, or plan deviation, Implementation writes a single learning file here (see `LEARNINGS.template.md`). Each file carries one or more Evolution Candidates with a **Destination** (`SPECS` / `TECH_DEBT` / `PROMPTS` / `SKILL` / `AGENTS`) and **Priority**. The evolver reads only this directory — the directory listing is the list of new learnings, so token cost stays proportional to new findings, not the total archive.
 * **`learnings/archive/` (Evaluated Records):** The evolver moves each evaluated learning here after promoting durable knowledge into guidance. Implementation does not read the archive; it reads the distilled guidance (skills / `AGENTS.md` / `TECH_DEBT.md`) that the evolver keeps current.
-* **`REVIEWER_FINDINGS.MD` (Audit Log):** On session startup, read `REVIEWER_FINDINGS.MD`. Address any listed architectural regressions, rule violations, or unhandled edge cases flagged by background reviewer agents. If the file is absent, continue normally.
-* **`PROMPTS.MD` (Loop Scripts & Prompts):** Store reusable autonomous execution prompts, CLI invocation flags, and Ralph Loop bash scripts.
+* **`REVIEWER_FINDINGS.md` (Audit Log):** On session startup, read `REVIEWER_FINDINGS.md`. Address any listed architectural regressions, rule violations, or unhandled edge cases flagged by background reviewer agents. If the file is absent, continue normally.
+* **`PROMPTS.md` (Loop Scripts & Prompts):** Store reusable autonomous execution prompts, CLI invocation flags, and Ralph Loop bash scripts.
 
 ### 5.4 Template Instantiation
 
@@ -110,7 +110,7 @@ When running inside an autonomous execution loop:
 * **Save Iteration Logs:** Pipe all terminal stdout/stderr for each run into `.logs/run-<timestamp>.log`. You may create the directory automatically.
 * **Standard Exit Codes:**
   * `0_DONE` — All items in `SPECS.md` are completed, verified, and checked off.
-  * `1_BLOCKED` — Execution halted; blocker details written to `BLOCKED.MD`.
+  * `1_BLOCKED` — Execution halted; blocker details written to `BLOCKED.md`.
   * `2_BUDGET_EXCEEDED` — Token or context window limit reached; state committed for resumption.
   * `3_STUCK` — Tests repeatedly failing or loop making no git progress across iterations.
 
