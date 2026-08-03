@@ -55,7 +55,7 @@ Inspect the repository before making assumptions.
 
 ## Documentation Responsibilities
 
-Implementation may write to `BLOCKED.md`, `LEARNINGS.md`, and `.logs/` only. It must not perform high-level documentation changes — those belong to Repository Evolution.
+Implementation may write to `BLOCKED.md`, `learnings/pending/`, and `.logs/` only. It may also **check off** (`[ ]` → `[x]`) completed items in `SPECS.md` — and nothing else in that file. It must not perform high-level documentation changes — those belong to Repository Evolution.
 
 ### BLOCKED.md
 
@@ -71,18 +71,21 @@ Record the exact error and halt further implementation.
 
 ---
 
-### LEARNINGS.md
+### SPECS.md check-off
 
-Record repository discoveries made during implementation.
+As each implementation unit is completed and verified, toggle its checkbox (`[ ]` → `[x]`) in `SPECS.md`. Do **not** edit spec content, reorder units, or change scope. Check-off is the only permitted write to `SPECS.md`.
 
-Examples include:
+---
 
-- non-obvious repository behavior,
-- recurring implementation patterns,
-- hidden architectural constraints,
-- unexpected repository quirks.
+### learnings/pending/
 
-When a discovery appears reusable across future work, create an **Evolution Candidate** rather than modifying repository guidance directly.
+Record repository discoveries made during implementation as a **single learning file** in `learnings/pending/` (see `LEARNINGS.template.MD`). Choose a record type:
+
+- **QUIRK** — non-obvious repository behavior,
+- **DEVIATION** — you did something differently than planned due to constraints,
+- **PATTERN** — a reusable, better way discovered during implementation.
+
+When a discovery appears reusable across future work, attach one or more **Evolution Candidates**, each with a **Destination** (`SPECS` / `TECH_DEBT` / `PROMPTS` / `SKILL` / `AGENTS`) and **Priority**. For example, a deviation caused by a wrong spec should carry a candidate to `SPECS` (fix the spec) and, if it was a compromise, a candidate to `TECH_DEBT` (record the trade-off).
 
 ---
 
@@ -96,11 +99,11 @@ Pipe terminal stdout/stderr into `.logs/run-<timestamp>.log` for each run.
 
 When implementation discovers reusable repository knowledge:
 
-1. Record it in `LEARNINGS.md`.
-2. Mark it as an Evolution Candidate (see `LEARNINGS.template.MD` for the required fields).
+1. Write a learning file in `learnings/pending/`.
+2. Attach Evolution Candidates with Destination and Priority (see `LEARNINGS.template.MD` for the required fields).
 3. Continue implementation whenever possible.
 
-Repository guidance is promoted during Repository Evolution, not during implementation. Implementation may only propose guidance changes via Evolution Candidates in `LEARNINGS.md`; it must not edit `AGENTS.md`, skills, templates, `SPECS.md`, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md`.
+Repository guidance is promoted during Repository Evolution, not during implementation. Implementation may only propose guidance changes via Evolution Candidates in `learnings/pending/`; it must not edit `AGENTS.md`, skills, templates, `SPECS.md` content, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md`.
 
 ---
 
@@ -110,9 +113,10 @@ Before considering implementation complete:
 
 - [ ] Active specification satisfied.
 - [ ] Required verification completed.
+- [ ] Completed `SPECS.md` items checked off (`[ ]` → `[x]`), with no content edits.
 - [ ] Modified files are intentional.
 - [ ] No unrelated files changed.
 - [ ] Implementation findings documented where appropriate.
-- [ ] No high-level documentation was modified (only `BLOCKED.md`, `LEARNINGS.md`, and `.logs/`).
+- [ ] No high-level documentation was modified (only `BLOCKED.md`, `learnings/pending/`, and `.logs/`).
 
 Implementation sessions map their completion to the exit codes in `AGENTS.md` Section 6 (`0_DONE` when the spec item is complete and verified; `1_BLOCKED` when halted with a blocker recorded in `BLOCKED.md`).

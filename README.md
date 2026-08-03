@@ -43,9 +43,10 @@ AGENTS.MD                     The master set of rules the assistant follows
 
 These files are created as needed, each from a matching template in `.agents/templates/`:
 
-- **`SPECS.md`** — the active plan of what to build.
+- **`SPECS.md`** — the active plan of what to build. Implementation checks off completed items as it goes.
 - **`BLOCKED.MD`** — a record of anything that stopped work, and why.
-- **`LEARNINGS.MD`** — a log of non-obvious discoveries, plus proposals for improving the rules.
+- **`learnings/pending/`** — new discoveries and plan deviations, each in its own file, awaiting evaluation.
+- **`learnings/archive/`** — evaluated learning records, moved here once processed.
 - **`TECH_DEBT.MD`** — a list of intentional shortcuts that should be revisited later.
 - **`REVIEWER_FINDINGS.MD`** — an audit log of regressions and rule violations.
 - **`PROMPTS.MD`** — reusable prompts and scripts for running sessions.
@@ -54,11 +55,11 @@ These files are created as needed, each from a matching template in `.agents/tem
 
 1. Read the master rules and the active plan.
 2. Do one item of the plan.
-3. Run the checks and confirm the result.
-4. Record anything learned or anything that blocked progress.
+3. Run the checks, confirm the result, and check off the completed item in `SPECS.md`.
+4. Record anything learned (in `learnings/pending/`) or anything that blocked progress.
 5. Report an exit code: done, blocked, budget exceeded, or stuck.
 
-Between sessions, a separate pass reviews the learnings and decides whether the rules need to change.
+Between sessions, a separate pass reviews only the new learnings in `learnings/pending/`, decides what is worth keeping, and moves them to `learnings/archive/`.
 
 ## Getting started
 

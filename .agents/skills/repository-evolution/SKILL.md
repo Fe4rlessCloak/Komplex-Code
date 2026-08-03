@@ -35,7 +35,7 @@ Review these documents before making planning decisions:
 - `AGENTS.md`
 - Active `SPECS.md`
 - Domain skills
-- `LEARNINGS.md`
+- `learnings/pending/` (the learning queue — read only this directory, not the archive)
 - `REVIEWER_FINDINGS.md`
 
 If a required operational document does not exist, create it using the corresponding template from `.agents/templates/`.
@@ -52,7 +52,7 @@ Depending on the session, this skill may create or update:
 - `SPECS.md`
 - Domain skills
 - Repository templates
-- `LEARNINGS.md`
+- `learnings/archive/` (move evaluated records here)
 - `TECH_DEBT.md`
 - `BLOCKED.md`
 - `REVIEWER_FINDINGS.md`
@@ -79,7 +79,7 @@ Do not interview for feature-specific implementation details.
 
 ## Knowledge Promotion
 
-Treat `LEARNINGS.md` as the repository evolution backlog.
+Treat `learnings/pending/` as the repository evolution backlog. The directory listing is the list of new learnings — read only the files in `pending/`, never the whole archive. This keeps token cost proportional to new findings.
 
 Each pending learning should be evaluated to determine whether it should:
 
@@ -88,28 +88,37 @@ Each pending learning should be evaluated to determine whether it should:
 - expand an existing domain skill,
 - create a new domain skill,
 - update a repository template,
+- be recorded in `TECH_DEBT.md`,
 - or be rejected as feature-specific.
 
-Promote only reusable repository knowledge.
+Promote only reusable repository knowledge. After evaluation, move each learning file from `learnings/pending/` to `learnings/archive/`.
 
 ### Evolution Candidates
 
-An **Evolution Candidate** is a proposal written by an Implementation session into `LEARNINGS.md`, requesting that the next Repository Evolution session change repository guidance. It is the only channel through which Implementation may propose guidance changes.
+An **Evolution Candidate** is a proposal written by an Implementation session into a learning file in `learnings/pending/`, requesting that the next Repository Evolution session change repository guidance or a document. It is the only channel through which Implementation may propose guidance changes.
 
 Each candidate must be evaluated against the following fields (see `LEARNINGS.template.MD`):
 
+- **Destination:** `SPECS` | `TECH_DEBT` | `PROMPTS` | `SKILL` | `AGENTS`
+- **Priority:** Low | Medium | High
 - **Status:** `PENDING` | `ACCEPTED` | `REJECTED`
 - **Suggested Target:** which document or skill it proposes to change
-- **Confidence:** Low | Medium | High
 - **Suggestion:** the concrete instruction change proposed
 - **Rationale:** why it should become repository guidance rather than remain feature-specific
+
+Process candidates in order of obligation:
+
+1. **SPECS** — MUST reconcile. The literal specification changed during implementation; update it before planning new work, or the next session repeats the mistake.
+2. **TECH_DEBT** — SHOULD record. An intentional compromise was made; capture it for traceability and future revisit.
+3. **PROMPTS** — SHOULD evaluate. Decide whether to accept the proposed prompt/script into `PROMPTS.md`.
+4. **SKILL / AGENTS** — MAY consider. Discretionary; decide whether to promote the proposed guidance change.
 
 When evaluating a candidate:
 
 1. Confirm it is reusable repository knowledge, not feature-specific detail.
 2. Check it does not weaken a **critical invariant** (see Guardrails below).
 3. Decide to accept, reject, or defer it.
-4. Update the candidate's `Status` in `LEARNINGS.md` to record the outcome.
+4. Update the candidate's `Status` to record the outcome.
 
 ---
 
@@ -152,8 +161,8 @@ When implementation is requested:
 Before concluding a Repository Evolution session:
 
 - [ ] Repository guidance has been reviewed.
-- [ ] Pending learnings have been evaluated.
-- [ ] Evolution Candidates have been resolved (accepted, rejected, or deferred).
+- [ ] `learnings/pending/` has been drained — every learning evaluated and moved to `learnings/archive/`.
+- [ ] Evolution Candidates have been resolved (accepted, rejected, or deferred) in priority order, with SPECS candidates reconciled first.
 - [ ] No critical invariant was weakened without explicit developer approval.
 - [ ] Planning artifacts are ready for implementation.
 - [ ] Repository instructions remain consistent.

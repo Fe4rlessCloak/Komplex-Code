@@ -1,35 +1,49 @@
-# Repository Quirks & Edge Cases
+# Learning Record
 
-Record only non-obvious repository-specific issues that future sessions are likely to repeat. Do not document ordinary bugs or feature implementations.
+Record only non-obvious, repository-specific findings that future sessions are likely to repeat. Do not document ordinary bugs or feature implementations.
+
+Each learning is a **single file** placed in `learnings/pending/` by Implementation. The Repository Evolution skill reads only `learnings/pending/`, evaluates each file, promotes durable knowledge into guidance, then moves the file to `learnings/archive/`.
 
 ---
 
-## [LEARNING-001] – Short Title
+## Record Type
+
+Choose one:
+
+- **QUIRK** — non-obvious repository behavior or edge case future sessions may repeat.
+- **DEVIATION** — implementation did something differently than planned due to constraints.
+- **PATTERN** — a reusable, better way discovered during implementation.
+
+---
+
+## Metadata
 
 - **Date Recorded:** YYYY-MM-DD
 - **Affected Subsystem:** `e.g., Prisma Migrations`
 - **Related Files:** `src/db/...`
 - **Related Spec:** `SPECS.md` (optional)
 
-### Symptom
+---
 
-Describe the observable failure.
+## Symptom / Context
 
-### Root Cause
+Describe the observable failure or the situation that forced a deviation.
 
-Explain the underlying technical reason.
+## Root Cause
 
-### Prevention Rule
+Explain the underlying technical or planning reason.
+
+## Prevention Rule
 
 A concise rule future agents should follow.
 
-### Blueprint
+## Blueprint
 
 ```typescript
 // Minimal correct implementation
 ```
 
-### Verification
+## Verification
 
 How to confirm the fix works.
 
@@ -40,16 +54,49 @@ Examples:
 - API returns HTTP 200
 - Migration completes successfully
 
-### Evolution Candidate 
+---
 
+## Evolution Candidates
+
+Each learning may propose **one or more** changes to repository guidance. Each candidate has a **Destination** (where the change goes) and a **Priority** (how urgently the evolver must act). A single deviation may spawn multiple candidates (e.g., one to `SPECS` and one to `TECH_DEBT`).
+
+### Candidate 1
+
+- **Destination:** `SPECS` | `TECH_DEBT` | `PROMPTS` | `SKILL` | `AGENTS`
+- **Priority:** Low | Medium | High
 - **Status:** PENDING | ACCEPTED | REJECTED
-- **Suggested Target:** `frontend.md`
-- **Confidence:** Low | Medium | High
+- **Suggested Target:** `e.g., SPECS.md, frontend.md, PROMPTS.md`
 
-#### Suggestion 
+#### Suggestion
 
-Describe what repository instruction should be added or changed.
+Describe what repository instruction or document should be added or changed.
 
 #### Rationale
 
 Explain why this should become repository guidance rather than remain feature-specific.
+
+### Candidate 2 (optional)
+
+- **Destination:** ...
+- **Priority:** ...
+- **Status:** PENDING | ACCEPTED | REJECTED
+- **Suggested Target:** ...
+
+#### Suggestion
+
+...
+
+#### Rationale
+
+...
+
+---
+
+## Destination Priority (for the Evolver)
+
+The evolver processes candidates in this order of obligation:
+
+1. **SPECS** — MUST reconcile. The literal specification changed during implementation; update it before planning new work or the next session repeats the mistake.
+2. **TECH_DEBT** — SHOULD record. An intentional compromise was made; capture it for traceability and future revisit.
+3. **PROMPTS** — SHOULD evaluate. Implementation proposes a reusable prompt/script; decide whether to accept it into `PROMPTS.md`.
+4. **SKILL / AGENTS** — MAY consider. Discretionary; the evolver decides whether to promote the proposed guidance change.

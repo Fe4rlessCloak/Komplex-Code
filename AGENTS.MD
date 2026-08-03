@@ -33,7 +33,7 @@ The **Repository Evolution** skill may update `AGENTS.md`, skills, and templates
 * **Detailed Git Commit Messages:** When commits are requested or running in autonomous mode, use structured commit messages. Write structured commit messages detailing *what* changed, *why* it changed, and *which spec item* was satisfied. Never issue generic commits (e.g., "fixed bug"). 
 * **Point Docs at Live Code:** Reference exact file paths (`src/services/auth.ts`) rather than describing logic in prose. Keep markdown docs sparse and code-pointer heavy to eliminate doc drift.
 * **Include Code Blueprints:** Every custom pattern or skill document must contain concrete, copy-pasteable inline code examples showing the target pattern.
-* **Prevent Repeat Mistakes:** If an iteration fails because of agent behavior, route the root cause through `LEARNINGS.MD` as an Evolution Candidate so the next Repository Evolution session can strengthen the relevant rule, skill, or spec before retrying. If the same class of mistake repeats, escalate it in `LEARNINGS.MD` so future iterations cannot make the same error.
+* **Prevent Repeat Mistakes:** If an iteration fails because of agent behavior, route the root cause through `learnings/pending/` as an Evolution Candidate so the next Repository Evolution session can strengthen the relevant rule, skill, or spec before retrying. If the same class of mistake repeats, escalate it in `learnings/pending/` so future iterations cannot make the same error.
 
 ---
 
@@ -71,29 +71,31 @@ The repository's operational documents are owned and maintained by the **Reposit
 
 | Document | Owner | Purpose |
 |---|---|---|
-| `SPECS.md` | Repository Evolution | Active specification of work to implement |
+| `SPECS.md` | Repository Evolution (content) / Implementation (check-off) | Active specification of work to implement |
 | `BLOCKED.MD` | Implementation (write) / Evolution (maintain) | The Handbrake: record blockers and halt |
 | `TECH_DEBT.MD` | Repository Evolution | Compromise tracker for intentional trade-offs |
-| `LEARNINGS.MD` | Implementation (write) / Evolution (evaluate) | Edge case archive and evolution backlog |
+| `learnings/pending/` | Implementation (write) / Evolution (evaluate) | New learning queue awaiting evaluation |
+| `learnings/archive/` | Repository Evolution | Evaluated learning records (historical) |
 | `REVIEWER_FINDINGS.MD` | Repository Evolution | Audit log of regressions and rule violations |
 | `PROMPTS.MD` | Repository Evolution | Reusable loop scripts and prompts |
 
 ### 5.2 Write Permissions
 
-* **Implementation** may write to `BLOCKED.MD`, `LEARNINGS.MD`, and `.logs/` only. It may propose guidance changes via `LEARNINGS.MD` Evolution Candidates, but must not edit `AGENTS.md`, skills, templates, `SPECS.md`, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md`.
-* **Repository Evolution** owns and may update all operational documents and repository guidance.
+* **Implementation** may write to `BLOCKED.MD`, `learnings/pending/`, and `.logs/` only. It may also **check off** (`[ ]` → `[x]`) completed items in `SPECS.md` — and nothing else in that file: no content edits, no reordering, no scope changes. It may propose guidance changes via Evolution Candidates in `learnings/pending/`, but must not edit `AGENTS.md`, skills, templates, `SPECS.md` content, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md`.
+* **Repository Evolution** owns and may update all operational documents and repository guidance. It drains `learnings/pending/`, promotes durable knowledge into guidance, and moves evaluated records to `learnings/archive/`.
 
 ### 5.3 Document Definitions
 
 * **`BLOCKED.MD` (The Handbrake):** If you hit an environment blocker, missing secret, or failing third-party endpoint, write the exact error and requirements to `BLOCKED.MD` and halt immediately. Do not attempt speculative workarounds.
 * **`TECH_DEBT.MD` (Compromise Tracker):** Record only intentional temporary compromises that should be revisited. Do not record ordinary implementation decisions.
-* **`LEARNINGS.MD` (Edge Case Archive):** After resolving a non-obvious bug or repository quirk, append a concise root-cause summary and fix pattern so future sessions avoid repeating the issue. Mark reusable discoveries as Evolution Candidates for the next Repository Evolution session to evaluate.
+* **`learnings/pending/` (Learning Queue):** After resolving a non-obvious bug, repository quirk, or plan deviation, Implementation writes a single learning file here (see `LEARNINGS.template.MD`). Each file carries one or more Evolution Candidates with a **Destination** (`SPECS` / `TECH_DEBT` / `PROMPTS` / `SKILL` / `AGENTS`) and **Priority**. The evolver reads only this directory — the directory listing is the list of new learnings, so token cost stays proportional to new findings, not the total archive.
+* **`learnings/archive/` (Evaluated Records):** The evolver moves each evaluated learning here after promoting durable knowledge into guidance. Implementation does not read the archive; it reads the distilled guidance (skills / `AGENTS.md` / `TECH_DEBT.md`) that the evolver keeps current.
 * **`REVIEWER_FINDINGS.MD` (Audit Log):** On session startup, read `REVIEWER_FINDINGS.MD`. Address any listed architectural regressions, rule violations, or unhandled edge cases flagged by background reviewer agents. If the file is absent, continue normally.
 * **`PROMPTS.MD` (Loop Scripts & Prompts):** Store reusable autonomous execution prompts, CLI invocation flags, and Ralph Loop bash scripts.
 
 ### 5.4 Template Instantiation
 
-When creating any operational or instruction file for the first time (such as `SPECS.md`, `BLOCKED.md`, `TECH_DEBT.md`, `LEARNINGS.md`, `REVIEWER_FINDINGS.md`, `PROMPTS.md`, or domain skill documents), instantiate it from the corresponding template in `.agents/templates/`. Preserve the template structure and headings, replacing placeholder values with project-specific content. If no template exists, report the missing template and do not invent a new format.
+When creating any operational or instruction file for the first time (such as `SPECS.md`, `BLOCKED.md`, `TECH_DEBT.md`, a learning record in `learnings/pending/`, `REVIEWER_FINDINGS.md`, `PROMPTS.md`, or domain skill documents), instantiate it from the corresponding template in `.agents/templates/`. Preserve the template structure and headings, replacing placeholder values with project-specific content. If no template exists, report the missing template and do not invent a new format.
 
 
 ---
