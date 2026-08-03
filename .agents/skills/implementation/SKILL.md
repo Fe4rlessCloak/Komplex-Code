@@ -1,3 +1,8 @@
+---
+name: implementation
+description: Implement the active specification using the repository's operational guidance.
+---
+
 # Domain Skill: Implementation
 
 ## Purpose

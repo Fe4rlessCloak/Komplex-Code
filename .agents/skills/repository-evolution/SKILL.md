@@ -1,3 +1,8 @@
+---
+name: repository-evolution
+description: Prepare the repository for implementation by planning, interviewing, and evolving repository guidance.
+---
+
 # Domain Skill: Repository Evolution
 
 ## Purpose

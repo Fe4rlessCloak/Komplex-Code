@@ -17,9 +17,9 @@ These two jobs are kept separate on purpose. The person doing the work should no
 
 ```
 AGENTS.MD                     The master set of rules the assistant follows
-skills/
-  IMPLEMENTATION.MD           Rules for the "do the work" sessions
-  REPOSITORY_EVOLUTION.MD     Rules for the "improve the rules" sessions
+.agents/skills/
+  implementation/SKILL.md     Rules for the "do the work" sessions
+  repository-evolution/SKILL.md  Rules for the "improve the rules" sessions
 .agents/templates/            Blank copies of the working documents
 ```
 
@@ -35,9 +35,9 @@ skills/
 
 ### The two skills
 
-[`skills/IMPLEMENTATION.MD`](skills/IMPLEMENTATION.MD) governs the sessions that build things. Its job is to satisfy the active plan with the smallest sensible change, verify the result, and record anything it learned. It is deliberately not allowed to rewrite the rules.
+[`.agents/skills/implementation/SKILL.md`](.agents/skills/implementation/SKILL.md) governs the sessions that build things. Its job is to satisfy the active plan with the smallest sensible change, verify the result, and record anything it learned. It is deliberately not allowed to rewrite the rules.
 
-[`skills/REPOSITORY_EVOLUTION.MD`](skills/REPOSITORY_EVOLUTION.MD) governs the sessions that improve the rules. It reviews what the implementation sessions learned, decides what is worth keeping, and updates the master rules and templates. It has one hard limit: it may not remove or weaken critical safeguards, such as security controls or the ownership model, without explicit approval.
+[`.agents/skills/repository-evolution/SKILL.md`](.agents/skills/repository-evolution/SKILL.md) governs the sessions that improve the rules. It reviews what the implementation sessions learned, decides what is worth keeping, and updates the master rules and templates. It has one hard limit: it may not remove or weaken critical safeguards, such as security controls or the ownership model, without explicit approval.
 
 ### The working documents
 
