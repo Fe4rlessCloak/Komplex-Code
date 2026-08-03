@@ -52,7 +52,9 @@ Meta-skills govern the repository's instruction system itself. Load them based o
 
 ### 4.2 Domain Skills
 
-Domain skills encode reusable conventions for a specific technical area. They are defined under `.agents/skills/` as they are created. Load the relevant skill before modifying code in that domain:
+Domain skills encode reusable conventions for a specific technical area. They are defined under `.agents/skills/` as they are created. Load the relevant skill before modifying code in that domain.
+
+The following are examples; the evolver can create any skill it deems necessary.
 
 * **Frontend Development:** `.agents/skills/frontend.md` [Populate path when created]
 * **Backend & API Routes:** `.agents/skills/backend.md` [Populate path when created]
