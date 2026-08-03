@@ -9,15 +9,19 @@
 
 ---
 
-## 2. Instruction Priority 
+## 2. Instruction Priority
 
 When instructions conflict, follow them in this order:
 
 1. Direct user request
 2. Active SPECS.md
 3. AGENTS.md
-4. Domain skill documents
+4. Skill documents (meta-skills and domain skills)
 5. Existing project conventions
+
+### 2.1 Evolution Guardrails
+
+The **Repository Evolution** skill may update `AGENTS.md`, skills, and templates to keep the instruction system effective. This authority is bounded: it must never remove or weaken **critical invariants** — security controls (e.g., 2FA, secrets handling), architectural constraints, or the ownership model defined in Section 5. When an evolution change touches a critical invariant, flag it for explicit developer approval rather than applying it silently.
 
 ## 3. Core Operating Directives
 
@@ -29,34 +33,68 @@ When instructions conflict, follow them in this order:
 * **Detailed Git Commit Messages:** When commits are requested or running in autonomous mode, use structured commit messages. Write structured commit messages detailing *what* changed, *why* it changed, and *which spec item* was satisfied. Never issue generic commits (e.g., "fixed bug"). 
 * **Point Docs at Live Code:** Reference exact file paths (`src/services/auth.ts`) rather than describing logic in prose. Keep markdown docs sparse and code-pointer heavy to eliminate doc drift.
 * **Include Code Blueprints:** Every custom pattern or skill document must contain concrete, copy-pasteable inline code examples showing the target pattern.
-* **Prevent Repeat Mistakes:** If an iteration fails because of agent behavior, update the relevant rule, skill, or spec before retrying. If the same class of mistake repeats, strengthen AGENTS.md or the appropriate skill document so future iterations cannot make the same error.
+* **Prevent Repeat Mistakes:** If an iteration fails because of agent behavior, route the root cause through `LEARNINGS.MD` as an Evolution Candidate so the next Repository Evolution session can strengthen the relevant rule, skill, or spec before retrying. If the same class of mistake repeats, escalate it in `LEARNINGS.MD` so future iterations cannot make the same error.
 
 ---
 
-## 4. Domain Skill Routing
+## 4. Skill Routing
 
-Before performing domain-specific work, load the corresponding skill document if it exists and follow its guidance unless it conflicts with higher-priority instructions.
+Before performing work, load the corresponding skill document if it exists and follow its guidance unless it conflicts with higher-priority instructions.
 
-* **Frontend Development:** `.agents/skills/frontend.md` [Populate path during setup]
-* **Backend & API Routes:** `.agents/skills/backend.md` [Populate path during setup]
-* **Database & Migrations:** `.agents/skills/database.md` [Populate path during setup]
-* **Testing & Verification:** `.agents/skills/testing.md` [Populate path during setup]
+### 4.1 Meta-Skills
 
-If the skill file is missing, continue using AGENTS.md alone and report the missing skill.
+Meta-skills govern the repository's instruction system itself. Load them based on the session type:
+
+| Session type | Skill to load |
+|---|---|
+| Implementing the active spec | `skills/IMPLEMENTATION.MD` |
+| Evolving repository guidance / planning | `skills/REPOSITORY_EVOLUTION.MD` |
+
+### 4.2 Domain Skills
+
+Domain skills encode reusable conventions for a specific technical area. They are defined under `.agents/skills/` as they are created. Load the relevant skill before modifying code in that domain:
+
+* **Frontend Development:** `.agents/skills/frontend.md` [Populate path when created]
+* **Backend & API Routes:** `.agents/skills/backend.md` [Populate path when created]
+* **Database & Migrations:** `.agents/skills/database.md` [Populate path when created]
+* **Testing & Verification:** `.agents/skills/testing.md` [Populate path when created]
+
+If a skill file is missing, continue using AGENTS.md alone and report the missing skill.
 
 ---
 
-## 5. Autonomous File & Artifact Handlers
+## 5. Operational Documents & Ownership
 
-Check, maintain, or update these operational files based on runtime events:
+The repository's operational documents are owned and maintained by the **Repository Evolution** skill. Implementation sessions do not perform high-level documentation changes.
+
+### 5.1 Document Ownership
+
+| Document | Owner | Purpose |
+|---|---|---|
+| `SPECS.md` | Repository Evolution | Active specification of work to implement |
+| `BLOCKED.MD` | Implementation (write) / Evolution (maintain) | The Handbrake: record blockers and halt |
+| `TECH_DEBT.MD` | Repository Evolution | Compromise tracker for intentional trade-offs |
+| `LEARNINGS.MD` | Implementation (write) / Evolution (evaluate) | Edge case archive and evolution backlog |
+| `REVIEWER_FINDINGS.MD` | Repository Evolution | Audit log of regressions and rule violations |
+| `PROMPTS.MD` | Repository Evolution | Reusable loop scripts and prompts |
+
+### 5.2 Write Permissions
+
+* **Implementation** may write to `BLOCKED.MD`, `LEARNINGS.MD`, and `.logs/` only. It may propose guidance changes via `LEARNINGS.MD` Evolution Candidates, but must not edit `AGENTS.md`, skills, templates, `SPECS.md`, `TECH_DEBT.md`, or `REVIEWER_FINDINGS.md`.
+* **Repository Evolution** owns and may update all operational documents and repository guidance.
+
+### 5.3 Document Definitions
 
 * **`BLOCKED.MD` (The Handbrake):** If you hit an environment blocker, missing secret, or failing third-party endpoint, write the exact error and requirements to `BLOCKED.MD` and halt immediately. Do not attempt speculative workarounds.
-* **`TECH_DEBT.MD` (Compromise Tracker):** If you must make a temporary trade-off, bypass a standard pattern, or introduce non-reusable code to satisfy the active spec, document the file path, reason, and remediation path in `TECH_DEBT.MD`. Add a `// TECHDEBT:` comment in code.
-Only create TECH_DEBT entries for intentional compromises that should be revisited. Do not record ordinary implementation decisions.
-
-* **`LEARNINGS.MD` (Edge Case Archive):** After resolving a non-obvious bug or repository quirk, append a concise root-cause summary and fix pattern to `LEARNINGS.MD` so future sessions avoid repeating the issue.
+* **`TECH_DEBT.MD` (Compromise Tracker):** Record only intentional temporary compromises that should be revisited. Do not record ordinary implementation decisions.
+* **`LEARNINGS.MD` (Edge Case Archive):** After resolving a non-obvious bug or repository quirk, append a concise root-cause summary and fix pattern so future sessions avoid repeating the issue. Mark reusable discoveries as Evolution Candidates for the next Repository Evolution session to evaluate.
 * **`REVIEWER_FINDINGS.MD` (Audit Log):** On session startup, read `REVIEWER_FINDINGS.MD`. Address any listed architectural regressions, rule violations, or unhandled edge cases flagged by background reviewer agents. If the file is absent, continue normally.
-* **`PROMPTS.MD` (Loop Scripts & Prompts):** Store reusable autonomous execution prompts, CLI invocation flags, and Ralph Loop bash scripts in `PROMPTS.MD`.
+* **`PROMPTS.MD` (Loop Scripts & Prompts):** Store reusable autonomous execution prompts, CLI invocation flags, and Ralph Loop bash scripts.
+
+### 5.4 Template Instantiation
+
+When creating any operational or instruction file for the first time (such as `SPECS.md`, `BLOCKED.md`, `TECH_DEBT.md`, `LEARNINGS.md`, `REVIEWER_FINDINGS.md`, `PROMPTS.md`, or domain skill documents), instantiate it from the corresponding template in `.agents/templates/`. Preserve the template structure and headings, replacing placeholder values with project-specific content. If no template exists, report the missing template and do not invent a new format.
+
 
 ---
 
@@ -65,32 +103,18 @@ Only create TECH_DEBT entries for intentional compromises that should be revisit
 When running inside an autonomous execution loop:
 
 * **Session Isolation:** Treat every loop run as a fresh environment. Read `AGENTS.md` and active `SPECS.md`, execute one spec item, run test suites, update docs, commit, and terminate.
-* **Save Iteration Logs:** Pipe all terminal stdout/stderr for each run into `.logs/run-<timestamp>.log`. You may create the directory automatically. 
+* **Save Iteration Logs:** Pipe all terminal stdout/stderr for each run into `.logs/run-<timestamp>.log`. You may create the directory automatically.
 * **Standard Exit Codes:**
   * `0_DONE` — All items in `SPECS.md` are completed, verified, and checked off.
   * `1_BLOCKED` — Execution halted; blocker details written to `BLOCKED.MD`.
   * `2_BUDGET_EXCEEDED` — Token or context window limit reached; state committed for resumption.
   * `3_STUCK` — Tests repeatedly failing or loop making no git progress across iterations.
 
+Implementation sessions map their completion to these exit codes; Repository Evolution sessions use them to decide whether to plan new work or revisit guidance.
 
-## 7. Planning
 
-Before modifying code:
 
-- Inspect affected files.
-- Identify dependencies.
-- Confirm assumptions through repository inspection.
-- Implement the change with the narrowest appropriate scope while preserving maintainability, correctness, and consistency with the existing architecture.
-
-## 8. Verification
-
-Before committing:
-
-- Run the required verification for the modified scope.
-- Ensure modified files are intentional.
-- Confirm no unrelated files changed.
-
-## 9. Security
+## 7. Security
 
 - Never commit secrets.
 - Never invent credentials.
