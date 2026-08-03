@@ -75,6 +75,16 @@ Ask one question at a time.
 
 Do not interview for feature-specific implementation details.
 
+### Interviewing Verbosity
+
+At the start of the interview phase, ask the developer to choose a verbosity level (default: **Moderate**). The choice governs how deeply you question and how much clarity you provide. The developer may change the level mid-interview.
+
+- **Extreme** — Ask about every minute detail relevant to the decision. For each option or concept you present, explain what it means in plain terms (avoid unexplained jargon) and give clear **pros and cons / trade-offs** so the developer can choose informed. Best for beginners or those who want to understand the "why" behind each decision.
+- **Moderate** — Ask about major high-level details plus some low-level implementation details. Assume reasonable technical familiarity; give brief pros/cons on consequential decisions but do not over-explain basic concepts.
+- **Low** — Ask only when truly blocked or when a decision materially affects correctness, architecture, or security. Make reasonable assumptions and proceed. No concept explanation; assume expert familiarity.
+
+Verbosity governs depth and clarity only — it does not change the "ask one question at a time" rule.
+
 ---
 
 ## Knowledge Promotion
